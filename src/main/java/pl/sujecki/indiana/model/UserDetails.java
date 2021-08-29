@@ -8,11 +8,11 @@ import java.util.UUID;
 public class UserDetails {
 
     @Id
-    public Long id;
-    public String name;
-    public String surname;
-    public String country;
-    public String whenCreated;
+    private Long id;
+    private String name;
+    private String surname;
+    private String country;
+    private String whenCreated;
 
     public UserDetails() {
     }

@@ -1,24 +1,22 @@
 package pl.sujecki.indiana.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Item {
 
     @Id
-    public Long id;
-    public String name;
+    private Long id;
+    private String name;
 
     @ManyToOne
-    public User user;
-    public String description;
-    public String picture;
-    public String whenFound;
-    public String whereFound;
-    public String coordinates;
+    private User user;
+    private String description;
+    private String picture;
+    private String whenFound;
+    private String whereFound;
+    @OneToOne
+    private Coordinates coordinates;
 
     public Item() {
     }

@@ -1,19 +1,20 @@
 package pl.sujecki.indiana.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue
-    public Long id;
-    public String username;
-    public String password;
-    public String email;
+    private Long id;
+    private String username;
+    private String password;
+    private String email;
+
+    @OneToMany
+    private List<Roles> userRoles;
 
     @OneToOne
     public UserDetails userDetails;
@@ -61,7 +62,7 @@ public class User {
         this.userDetails = userDetails;
     }
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email, Roles roles) {
         this.username = username;
         this.password = password;
         this.email = email;
