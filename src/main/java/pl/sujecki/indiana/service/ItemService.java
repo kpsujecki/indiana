@@ -8,6 +8,7 @@ import pl.sujecki.indiana.repository.ItemRepository;
 import pl.sujecki.indiana.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ItemService {
@@ -22,7 +23,7 @@ public class ItemService {
     }
 
     public List<Item> findAllByUsername(String username){
-        User user = userRepository.getUserByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         return itemRepository.findAllByUser(user);
     }
 

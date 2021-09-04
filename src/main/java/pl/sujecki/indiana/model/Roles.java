@@ -8,8 +8,12 @@ public class Roles {
 
     @Id
     private Long id;
-    private String name;
+    private EnumRoles name;
 
     public Roles() {
+    }
+
+    public EnumRoles getName() {
+        return name;
     }
 }

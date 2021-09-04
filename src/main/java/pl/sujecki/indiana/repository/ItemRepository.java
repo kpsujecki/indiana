@@ -5,11 +5,12 @@ import pl.sujecki.indiana.model.Item;
 import pl.sujecki.indiana.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
 
-    List<Item> findAllByUser(User user);
+    List<Item> findAllByUser(Optional<User> user);
 
     Item findItemById(Long id);
 }

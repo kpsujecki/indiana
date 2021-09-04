@@ -2,6 +2,7 @@ package pl.sujecki.indiana.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -14,12 +15,18 @@ public class User {
     private String email;
 
     @OneToMany
-    private List<Roles> userRoles;
+    private Set<Roles> roles;
 
     @OneToOne
     public UserDetails userDetails;
 
     public User() {
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -62,9 +69,12 @@ public class User {
         this.userDetails = userDetails;
     }
 
-    public User(String username, String password, String email, Roles roles) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
+    public Set<Roles> getRoles(){
+        return roles;
     }
+
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
+    }
+
 }
