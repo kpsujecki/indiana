@@ -1,24 +1,48 @@
 package pl.sujecki.indiana.model;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
-@Entity
-public class User {
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(	name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email")
+        })
+public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
+    @Size(max = 20)
     private String username;
-    private String password;
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
     private String email;
 
-    @OneToMany
-    private Set<Roles> roles;
+    @NotBlank
+    @Size(max = 120)
+    private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @OneToOne
-    public UserDetails userDetails;
+    private UserDetails userDetails;
 
     public User() {
     }
@@ -45,14 +69,6 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -61,20 +77,19 @@ public class User {
         this.email = email;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Set<Roles> getRoles(){
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Roles> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
 }
