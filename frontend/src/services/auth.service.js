@@ -1,33 +1,42 @@
 import api from "./api";
 import TokenService from "./token.service";
 
-class AuthService {
-    login(username, password) {
-        return api
-            .post("/auth/signin", {
-                username,
-                password
-            })
-            .then(response => {
-                if (response.data.accessToken) {
-                    TokenService.setUser(response.data);
-                }
+const register = (username, email, password) => {
+  return api.post("/auth/signup", {
+    username,
+    email,
+    password
+  });
+};
 
-                return response.data;
-            });
-    }
+const login = (username, password) => {
+  return api
+    .post("/auth/signin", {
+      username,
+      password
+    })
+    .then((response) => {
+      if (response.data.accessToken) {
+        TokenService.setUser(response.data);
+      }
 
-    logout() {
-        TokenService.removeUser();
-    }
+      return response.data;
+    });
+};
 
-    register(username, email, password) {
-        return api.post("/auth/signup", {
-            username,
-            email,
-            password
-        });
-    }
-}
+const logout = () => {
+  TokenService.removeUser();
+};
 
-export default new AuthService();
+const getCurrentUser = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};
+
+const AuthService = {
+  register,
+  login,
+  logout,
+  getCurrentUser,
+};
+
+export default AuthService;
