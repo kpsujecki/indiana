@@ -7,10 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import com.indiana.models.ERole;
-import com.indiana.models.RefreshToken;
-import com.indiana.models.Role;
-import com.indiana.models.User;
+import com.indiana.models.*;
 import com.indiana.payload.request.LogOutRequest;
 import com.indiana.payload.request.LoginRequest;
 import com.indiana.payload.request.SignupRequest;
@@ -93,7 +90,7 @@ public class AuthController {
 
     // Create new user's account
     User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
-        encoder.encode(signUpRequest.getPassword()));
+        encoder.encode(signUpRequest.getPassword()), new UserDetails());
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();

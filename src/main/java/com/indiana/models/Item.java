@@ -28,6 +28,9 @@ public class Item {
     @Lob
     private byte[] image;
 
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "coordinates_id")
+    private Coordinates coordinates;
 
     public Long getId() {
         return id;
@@ -85,14 +88,23 @@ public class Item {
         this.image = image;
     }
 
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
     public Item() {
     }
 
-    public Item(String name, String description, User user, Date dateFound, byte[] image) {
+    public Item(String name, String description, User user, Date dateFound, byte[] image, Coordinates coordinates) {
         this.name = name;
         this.description = description;
         this.user = user;
         this.dateFound = dateFound;
         this.image = image;
+        this.coordinates = coordinates;
     }
 }

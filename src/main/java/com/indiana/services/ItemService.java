@@ -1,7 +1,9 @@
 package com.indiana.services;
 
+import com.indiana.models.Coordinates;
 import com.indiana.models.Item;
 import com.indiana.models.User;
+import com.indiana.repository.CoordinatesRepository;
 import com.indiana.repository.ItemRepository;
 import com.indiana.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class ItemService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CoordinatesRepository coordinatesRepository;
+
     public Page<Item> getAll(Pageable pageable) {
         return itemRepository.findAll(pageable);
     }
@@ -45,6 +50,7 @@ public class ItemService {
     public void addNewItem(Item item){
         itemRepository.save(item);
     }
+
     public void addItem(String name, String description, Long id, Date dateFound, MultipartFile image){
         byte [] byteImage= new byte[0];
         try {
@@ -56,7 +62,7 @@ public class ItemService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with id: " + id));
 
-        Item item = new Item(name,description,user,dateFound,byteImage);
+        Item item = new Item(name,description,user,dateFound,byteImage, new Coordinates());
 
         itemRepository.save(item);
     }

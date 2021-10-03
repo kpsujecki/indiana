@@ -38,13 +38,18 @@ public class User {
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "user_details_id")
+	private UserDetails userDetails;
+
 	public User() {
 	}
 
-	public User(String username, String email, String password) {
+	public User(String username, String email, String password, UserDetails userDetails) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.userDetails = userDetails;
 	}
 
 	public Long getId() {
@@ -85,5 +90,13 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public UserDetails getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(UserDetails userDetails) {
+		this.userDetails = userDetails;
 	}
 }

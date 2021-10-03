@@ -61,8 +61,8 @@ public class ItemController {
     }
 
 
-    @PostMapping(path = "/ad", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<Object> saveEmployee(@RequestParam String name, @RequestParam String description,
+    @PostMapping(path = "/add", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<Object> saveItem(@RequestParam String name, @RequestParam String description,
                                                @RequestParam Long user, @RequestParam Date dateFound,
                                                @RequestPart MultipartFile image) {
         itemService.addItem(name, description, user, dateFound, image);
