@@ -23,12 +23,6 @@ public class ItemController {
     @Autowired
     ItemService itemService;
 
-    @PostMapping("/add")
-    public Item createProduct(@RequestBody Item item) {
-        itemService.addNewItem(item);
-        return item;
-    }
-
     @GetMapping("/userItem")
     public ResponseEntity<Map<String, Object>> getAllTutorials(
             @RequestParam(required = false) Long id,
