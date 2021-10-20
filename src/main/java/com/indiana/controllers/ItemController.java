@@ -24,7 +24,7 @@ public class ItemController {
     ItemService itemService;
 
     @GetMapping("/userItem")
-    public ResponseEntity<Map<String, Object>> getAllTutorials(
+    public ResponseEntity<Map<String, Object>> getAllItems(
             @RequestParam(required = false) Long id,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -63,5 +63,14 @@ public class ItemController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping(path="/byCoordinates")
+    public ResponseEntity<Object> getLastItemByCoordinates(@RequestParam Date dateStart, @RequestParam Date dateEnd){
+        try{
+            List<Item> response = itemService.getAllByMonth(dateStart, dateEnd);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

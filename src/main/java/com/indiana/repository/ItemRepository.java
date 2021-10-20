@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
@@ -13,4 +14,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     Page<Item> findAllByUser(User user, Pageable pageable);
 
     List<Item> findAllByUserOrderByDateFound(User user);
+
+    List<Item> findAllByDateFoundLessThanEqualAndDateFoundGreaterThanEqual(Date startDate, Date endDate);
 }

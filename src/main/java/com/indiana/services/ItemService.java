@@ -77,4 +77,11 @@ public class ItemService {
         return userItems;
     }
 
+    public List<Item> getAllByMonth(Date startDate, Date endDate) {
+        List<Item> itemList = null;
+
+        itemList = itemRepository.findAllByDateFoundLessThanEqualAndDateFoundGreaterThanEqual(startDate, endDate);
+
+        return itemList;
+    }
 }
